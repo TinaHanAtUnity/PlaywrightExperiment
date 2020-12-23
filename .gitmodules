@@ -1,0 +1,3 @@
+[submodule "unity-ads-webview"]
+	path = unity-ads-webview
+	url = https://github.com/Unity-Technologies/unity-ads-webview.git
