@@ -11,11 +11,15 @@ const mraid_playable = fs.readFileSync("./creatives/mraid_playable").toString();
 (async () => {
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
-  const creative = { contentType: 'programmatic/mraid-playable', adTag: mraid_playable };
-  await page.exposeFunction('getCreative', () => {
+  const creative = { contentType: 'programmatic/mraid', adTag: mraid_html };
+  await page.exposeFunction('crGetCreative', () => {
     return creative;
   });
+  await page.exposeFunction('crCreativeLoaded', () => {
+    new Promise(r => setTimeout(r, 2000)).then(() => {
+        page.screenshot({ path: `example.png` });
+    });
+  });
   await page.goto('http://localhost:8000/build/browser/');
-  await page.screenshot({ path: `example.png` });
   //await browser.close();
 })();
